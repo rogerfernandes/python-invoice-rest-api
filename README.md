@@ -3,6 +3,25 @@ Invoice Python API
 
 pipenv
 
+```
+GET
+http://localhost/api/v1/invoices?reference_year=2020&reference_month=2&document=123&sort=reference_year&dir=desc&page_size=10&page_number=2
+
+POST
+http://localhost/api/v1/invoice
+{
+    "document": "12345",
+    "description": "Nota Fiscal 12345",
+    "amount": 800.23,
+    "reference_month": 8,
+    "reference_year": 2020
+}
+
+GET, DELETE
+localhost/api/v1/invoice/12345
+
+```
+
 ```sql
 CREATE DATABASE invoice_store;
 
