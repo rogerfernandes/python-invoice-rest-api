@@ -65,43 +65,6 @@ class InvoiceResource(Resource):
 
 
 class InvoicesResource(Resource):
-    """
-    # FILTER
-    . reference_month
-    . reference_year
-    . document
-
-    # SORT
-    . reference_month
-    . reference_year
-    . document
-
-    # DIR
-    . ASC (default)
-    . DESC
-
-    # PAGINATION
-    . page_size (default=20)
-    . page_number (default=1)
-
-    # RESPONSE STRUCT
-    {
-        "page_size": 20,
-        "page_number": 1,
-        "total_items": 9,
-        "last_page": false,
-        "data": [
-            {
-                "document": "666"
-            },
-            {
-                "document": "888"
-            }
-        ]
-    }
-
-    """
-
     def get(self):
         try:
             return invoice_service.get_invoices(request.args)
