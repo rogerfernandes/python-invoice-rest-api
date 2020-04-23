@@ -18,7 +18,7 @@ http://localhost/api/v1/invoice
 }
 
 GET, DELETE
-localhost/api/v1/invoice/12345
+http://localhost/api/v1/invoice/12345
 
 ```
 
