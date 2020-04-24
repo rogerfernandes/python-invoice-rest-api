@@ -1,16 +1,16 @@
-from invoice_app.exception.invoice import InvoiceNotFoundException
+from invoice_app.exceptions.invoice import InvoiceNotFoundException
 from invoice_app.models.page import Page
-from invoice_app.repository.invoice import InvoiceRepository
+from invoice_app.repositories.invoice import InvoiceRepository
 from invoice_app.models.invoice import Invoice
 import math
 
 
 class InvoiceService:
     def __init__(self, invoice_rep: InvoiceRepository):
-        self.__invoice_rep = invoice_rep
+        self._invoice_rep = invoice_rep
 
     def get_invoice(self, document):
-        result = self.__invoice_rep.get_invoice(document)
+        result = self._invoice_rep.get_invoice(document)
         if not result:
             raise InvoiceNotFoundException
 
@@ -19,20 +19,20 @@ class InvoiceService:
 
     def save_invoice(self, data):
         invoice = Invoice(**data)
-        self.__invoice_rep.save_invoice(invoice)
+        self._invoice_rep.save_invoice(invoice)
         return invoice.to_json()
 
     def delete_invoice(self, document):
-        if not self.__invoice_rep.get_invoice(document):
+        if not self._invoice_rep.get_invoice(document):
             raise InvoiceNotFoundException
 
-        self.__invoice_rep.delete_invoice(document)
+        self._invoice_rep.delete_invoice(document)
 
     def get_invoices(self, request_params):
         self._validate(request_params)
 
-        result = self.__invoice_rep.get_invoices(request_params)
-        count = self.__invoice_rep.count_invoices(request_params)
+        result = self._invoice_rep.get_invoices(request_params)
+        count = self._invoice_rep.count_invoices(request_params)
         response = self._build_response_page(count, result, request_params)
 
         return response.to_json()

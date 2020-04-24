@@ -1,9 +1,9 @@
 from flask import Flask, request
 from flask_restful import Resource, Api, reqparse
 
-from invoice_app.ext import database, configuration
-from invoice_app.exception.invoice import InvoiceNotFoundException
-from invoice_app.repository.invoice import InvoiceRepository
+from invoice_app.extensions import database, configuration
+from invoice_app.exceptions.invoice import InvoiceNotFoundException
+from invoice_app.repositories.invoice import InvoiceRepository
 from invoice_app.services.invoice import InvoiceService
 
 

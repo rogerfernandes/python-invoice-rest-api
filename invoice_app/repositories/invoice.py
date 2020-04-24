@@ -1,13 +1,13 @@
 import datetime
 from datetime import datetime
 
-from invoice_app.ext.database import Database
+from invoice_app.extensions.database import Database
 from invoice_app.models.invoice import Invoice
 
 
 class InvoiceRepository:
     def __init__(self, db_instance: Database):
-        self.__database = db_instance
+        self._database = db_instance
 
     def get_invoice(self, document):
         query = 'select document, description, amount, reference_month, reference_year, is_active, created_at,' \
@@ -72,7 +72,7 @@ class InvoiceRepository:
         return query
 
     def _execute_query(self, query: str, params=None):
-        conn = self.__database.get_connection()
+        conn = self._database.get_connection()
         cur = conn.cursor(dictionary=True)
 
         result = cur.execute(query) if params is None else cur.execute(query, params)
