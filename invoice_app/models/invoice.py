@@ -17,10 +17,10 @@ class Invoice:
         return {
             'document': self._document,
             'description': self._description,
-            'amount': str(self._amount),
+            'amount': self._amount,
             'reference_month': self._reference_month,
             'reference_year': self._reference_year,
-            'created_at': str(self._created_at)
+            'created_at': self._created_at
         }
 
     def is_active(self):

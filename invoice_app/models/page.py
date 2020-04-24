@@ -8,8 +8,8 @@ class Page:
 
     def to_json(self):
         return {
-            'page_size': int(self._page_size),
-            'page_number': int(self._page_number),
+            'page_size': self._page_size,
+            'page_number': self._page_number,
             'total_items': self._total_items[0],
             'last_page': self._last_page[0],
             'data': self._data
