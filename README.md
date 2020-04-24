@@ -37,4 +37,10 @@ CREATE TABLE IF NOT EXISTS invoice_store.invoice (
     deactive_at DATETIME,
     PRIMARY KEY (id)
 );
+
+CREATE USER app@'%' IDENTIFIED BY 'pass';
+
+GRANT INSERT, DELETE, SELECT, UPDATE ON invoice_store.* TO 'app'@'%';
+
+flush privileges;
 ```

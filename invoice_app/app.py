@@ -1,8 +1,8 @@
 from flask import Flask, request
 from flask_restful import Resource, Api, reqparse
 
-from invoice_app.exception.invoice import InvoiceNotFoundException
 from invoice_app.ext import database, configuration
+from invoice_app.exception.invoice import InvoiceNotFoundException
 from invoice_app.repository.invoice import InvoiceRepository
 from invoice_app.services.invoice import InvoiceService
 
@@ -11,7 +11,7 @@ app = Flask(__name__)
 configuration.init_app(app)
 api_v1 = Api(app, "/api/v1")
 
-db = database.Database()
+db = database.Database(app.config)
 rep = InvoiceRepository(db)
 invoice_service = InvoiceService(rep)
 
@@ -78,4 +78,4 @@ api_v1.add_resource(InvoicesResource, "/invoices")
 
 
 if __name__ == "__main__":
-    app.run("0.0.0.0", 80, True)
+    app.run("0.0.0.0", 80)
