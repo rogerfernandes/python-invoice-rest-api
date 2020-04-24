@@ -46,11 +46,11 @@ class InvoiceRepository:
 
     def _build_get_invoices_query_filter(self, query: str, query_params: dict):
         if query_params.get('reference_year'):
-            query = query + ' and reference_year in ({})'.format(query_params.get('reference_year'))
+            query = query + ' and reference_year = {}'.format(query_params.get('reference_year'))
         if query_params.get('reference_month'):
-            query = query + ' and reference_month in ({})'.format(query_params.get('reference_month'))
+            query = query + ' and reference_month = {}'.format(query_params.get('reference_month'))
         if query_params.get('document'):
-            query = query + ' and document in ({})'.format(query_params.get('document'))
+            query = query + ' and document = \'{}\''.format(str(query_params.get('document')))
         return query
 
     def _build_get_invoices_query_sort(self, query: str, sort_param: str, dir_param: str):
