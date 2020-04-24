@@ -1,19 +1,19 @@
 [[source]]
-name = "pypi"
-url = "https://pypi.org/simple"
+name = 'pypi'
+url = 'https://pypi.org/simple'
 verify_ssl = true
 
 [dev-packages]
-flask = "==1.1.2"
-dynaconf = "==2.2.3"
-flask-restful = "==0.3.8"
-mysql-connector = "==2.2.9"
+flask = '==1.1.2'
+dynaconf = '==2.2.3'
+flask-restful = '==0.3.8'
+mysql-connector = '==2.2.9'
 
 [packages]
-flask = "==1.1.2"
-dynaconf = "==2.2.3"
-flask-restful = "==0.3.8"
-mysql-connector = "==2.2.9"
+flask = '==1.1.2'
+dynaconf = '==2.2.3'
+flask-restful = '==0.3.8'
+mysql-connector = '==2.2.9'
 
 [requires]
-python_version = "3.7"
+python_version = '3.7'

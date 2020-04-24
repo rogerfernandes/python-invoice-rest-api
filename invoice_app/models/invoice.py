@@ -15,12 +15,12 @@ class Invoice:
 
     def to_json(self):
         return {
-            "document": self.__document,
-            "description": self.__description,
-            "amount": str(self.__amount),
-            "reference_month": self.__reference_month,
-            "reference_year": self.__reference_year,
-            "created_at": str(self.__created_at)
+            'document': self.__document,
+            'description': self.__description,
+            'amount': str(self.__amount),
+            'reference_month': self.__reference_month,
+            'reference_year': self.__reference_year,
+            'created_at': str(self.__created_at)
         }
 
     def _is_active(self):
@@ -38,4 +38,4 @@ class Invoice:
 
     @classmethod
     def insert_projection(cls):
-        return "document, description, amount, reference_month, reference_year, is_active, created_at"
+        return 'document, description, amount, reference_month, reference_year, is_active, created_at'

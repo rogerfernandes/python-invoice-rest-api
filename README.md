@@ -10,11 +10,11 @@ http://localhost/api/v1/invoices?reference_year=2020&reference_month=2&document=
 POST
 http://localhost/api/v1/invoice
 {
-    "document": "12345",
-    "description": "Nota Fiscal 12345",
-    "amount": 800.23,
-    "reference_month": 8,
-    "reference_year": 2020
+    'document': '12345',
+    'description': 'Nota Fiscal 12345',
+    'amount': 800.23,
+    'reference_month': 8,
+    'reference_year': 2020
 }
 
 GET, DELETE
