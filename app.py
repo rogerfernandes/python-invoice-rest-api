@@ -1,8 +1,8 @@
 from flask import Flask, request
-from flask_restful import Resource, Api, reqparse
+from flask_restful import Resource, Api, reqparse, marshal_with, fields
 
 from invoice_app.extensions import database, configuration
-from invoice_app.exceptions.invoice import InvoiceNotFoundException
+from invoice_app.exceptions.invoice import InvoiceNotFoundException, InvalidQueryParameterException
 from invoice_app.repositories.invoice import InvoiceRepository
 from invoice_app.services.invoice import InvoiceService
 
@@ -24,6 +24,16 @@ class InvoiceResource(Resource):
     params.add_argument('reference_month', type=int, required=True, help='Missing required parameter')
     params.add_argument('reference_year', type=int, required=True, help='Missing required parameter')
 
+    m_fields = {
+        'document': fields.String,
+        'description': fields.String,
+        'amount': fields.Float,
+        'reference_month': fields.Integer,
+        'reference_year': fields.Integer,
+        'created_at': fields.String
+    }
+
+    @marshal_with(m_fields, 'data')
     def get(self, document):
         try:
             return invoice_service.get_invoice(document)
@@ -65,9 +75,31 @@ class InvoiceResource(Resource):
 
 
 class InvoicesResource(Resource):
+    m_fields = {
+        'document': fields.String,
+        'description': fields.String,
+        'amount': fields.Float,
+        'reference_month': fields.Integer,
+        'reference_year': fields.Integer,
+        'created_at': fields.String
+    }
+
+    m_page_fields = {
+        'page_size': fields.Integer,
+        'page_number': fields.Integer,
+        'total_items': fields.Integer,
+        'last_page': fields.Integer,
+        'data': fields.Nested(m_fields)
+    }
+
+    @marshal_with(m_page_fields)
     def get(self):
         try:
             return invoice_service.get_invoices(request.args)
+
+        except InvalidQueryParameterException as e:
+            return e.http_error_message()
+
         except Exception as e:
             print(e)
             return {'message': 'An error occurred while trying to fetch Invoices'}, 500
