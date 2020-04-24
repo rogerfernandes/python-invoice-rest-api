@@ -2,6 +2,7 @@ from flask import Flask, request
 from flask_restful import Resource, Api, reqparse, marshal_with, fields
 
 from invoice_app.extensions import database, configuration
+from invoice_app.services.auth import requires_authentication
 from invoice_app.exceptions.invoice import InvoiceNotFoundException, InvalidQueryParameterException
 from invoice_app.repositories.invoice import InvoiceRepository
 from invoice_app.services.invoice import InvoiceService
@@ -33,6 +34,7 @@ class InvoiceResource(Resource):
         'created_at': fields.String
     }
 
+    @requires_authentication
     @marshal_with(m_fields, 'data')
     def get(self, document):
         try:
@@ -47,6 +49,8 @@ class InvoiceResource(Resource):
 
         return ex
 
+    @requires_authentication
+    @marshal_with(m_fields, 'data')
     def post(self):
         content_type = request.content_type
         if not content_type or content_type != 'application/json':
@@ -59,6 +63,7 @@ class InvoiceResource(Resource):
             print('Internal Error: ', err)
             return {'message': 'An error occurred while trying to save an Invoice'}, 500
 
+    @requires_authentication
     def delete(self, document):
         try:
             invoice_service.delete_invoice(document)
@@ -88,10 +93,11 @@ class InvoicesResource(Resource):
         'page_size': fields.Integer,
         'page_number': fields.Integer,
         'total_items': fields.Integer,
-        'last_page': fields.Integer,
+        'last_page': fields.Boolean,
         'data': fields.Nested(m_fields)
     }
 
+    @requires_authentication
     @marshal_with(m_page_fields)
     def get(self):
         try:
