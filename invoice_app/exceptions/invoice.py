@@ -11,3 +11,9 @@ class InvoiceNotFoundException(DefaultException):
     def __init__(self):
         self._message = None
         self._http_error_code = 204
+
+
+class InvalidQueryParameterException(DefaultException):
+    def __init__(self):
+        self._message = {"message": "Invalid query parameter"}
+        self._http_error_code = 400
