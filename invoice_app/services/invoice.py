@@ -1,4 +1,4 @@
-from invoice_app.exceptions.invoice import InvoiceNotFoundException
+from invoice_app.exceptions.invoice import InvoiceNotFoundException, InvalidQueryParameterException
 from invoice_app.models.page import Page
 from invoice_app.repositories.invoice import InvoiceRepository
 from invoice_app.models.invoice import Invoice
@@ -6,35 +6,33 @@ import math
 
 
 class InvoiceService:
+    _db_reserved_characters = [',', '\'', '"', '`', ')', '(']
+
     def __init__(self, invoice_rep: InvoiceRepository):
-        self._invoice_rep = invoice_rep
+        self._repository = invoice_rep
 
     def get_invoice(self, document):
-        result = self._invoice_rep.get_invoice(document)
+        result = self._repository.get_invoice(document)
         if not result:
             raise InvoiceNotFoundException
-
         invoice = Invoice(**result[0])
         return invoice.to_json()
 
     def save_invoice(self, data):
         invoice = Invoice(**data)
-        self._invoice_rep.save_invoice(invoice)
+        self._repository.save_invoice(invoice)
         return invoice.to_json()
 
     def delete_invoice(self, document):
-        if not self._invoice_rep.get_invoice(document):
+        if not self._repository.get_invoice(document):
             raise InvoiceNotFoundException
-
-        self._invoice_rep.delete_invoice(document)
+        self._repository.delete_invoice(document)
 
     def get_invoices(self, request_params):
         self._validate(request_params)
-
-        result = self._invoice_rep.get_invoices(request_params)
-        count = self._invoice_rep.count_invoices(request_params)
+        result = self._repository.get_invoices(request_params)
+        count = self._repository.count_invoices(request_params)
         response = self._build_response_page(count, result, request_params)
-
         return response.to_json()
 
     def _build_response_page(self, count, result, request_params):
@@ -64,6 +62,9 @@ class InvoiceService:
         return invoice_list
 
     def _validate(self, request_params: dict):
-        print(request_params)
         for value in request_params.values():
-            pass
+            if self._contains_reserved_character(str(value).lower()):
+                raise InvalidQueryParameterException
+
+    def _contains_reserved_character(self, string):
+        return any(value in string for value in self._db_reserved_characters)
