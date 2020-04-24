@@ -15,7 +15,7 @@ class InvoiceRepository:
         return self._execute_query(query, (document,))
 
     def save_invoice(self, invoice: Invoice):
-        query = 'insert into invoice ({}) values {}'.format(invoice.insert_projection(), invoice.insert_values())
+        query = f'insert into invoice ( {invoice.insert_projection()} ) values { invoice.insert_values() }'
         return self._execute_query(query)
 
     def delete_invoice(self, document):
@@ -46,18 +46,18 @@ class InvoiceRepository:
 
     def _build_get_invoices_query_filter(self, query: str, query_params: dict):
         if query_params.get('reference_year'):
-            query = query + ' and reference_year = {}'.format(query_params.get('reference_year'))
+            query = query + f' and reference_year = { query_params.get("reference_year") }'
         if query_params.get('reference_month'):
-            query = query + ' and reference_month = {}'.format(query_params.get('reference_month'))
+            query = query + f' and reference_month = { query_params.get("reference_month") }'
         if query_params.get('document'):
-            query = query + ' and document = \'{}\''.format(str(query_params.get('document')))
+            query = query + f' and document = \'{ str(query_params.get("document")) }\''
         return query
 
     def _build_get_invoices_query_sort(self, query: str, sort_param: str, dir_param: str):
         if sort_param:
             query = query + ' order by'
             for param in sort_param.split(','):
-                query = query + ' {} {},'.format(param, dir_param) if dir_param else query + ' {},'.format(param)
+                query = query + f' { param } { dir_param },' if dir_param else query + f' { param },'
             if query.endswith(','):
                 query = query[0:len(query)-1]
         else:
@@ -68,7 +68,7 @@ class InvoiceRepository:
         page_size = int(page_size_param) if page_size_param else 20
         page_number = int(page_number_param)-1 if page_number_param else 0
         offset = page_number * page_size
-        query = query + ' limit {} offset {}'.format(page_size, offset)
+        query = query + f' limit { page_size } offset { offset }'
         return query
 
     def _execute_query(self, query: str, params=None):
