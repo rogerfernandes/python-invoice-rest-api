@@ -1,12 +1,11 @@
 from flask import Flask, request
 from flask_restful import Resource, Api, reqparse, marshal_with, fields
 
-from invoice_app.extensions import database, configuration
-from invoice_app.services.auth import requires_authentication
 from invoice_app.exceptions.invoice import InvoiceNotFoundException, InvalidQueryParameterException
+from invoice_app.extensions import database, configuration
 from invoice_app.repositories.invoice import InvoiceRepository
+from invoice_app.services.auth import requires_authentication
 from invoice_app.services.invoice import InvoiceService
-
 
 app = Flask(__name__)
 configuration.init_app(app)
@@ -113,7 +112,6 @@ class InvoicesResource(Resource):
 
 api_v1.add_resource(InvoiceResource, '/invoice', '/invoice/<document>')
 api_v1.add_resource(InvoicesResource, '/invoices')
-
 
 if __name__ == '__main__':
     app.run('0.0.0.0', 80)

@@ -1,5 +1,7 @@
 from functools import wraps
+
 from flask import request
+
 from config import API_KEYS
 
 _authentication_header = 'X-Api-Key'
@@ -11,7 +13,8 @@ def requires_authentication(fn):
         if _is_present_authentication_header() and _is_present_token_in_api_keys():
             return fn(*args, **kwargs)
         else:
-            return {"message": f'Header { _authentication_header } type string, is missing or invalid'}, 401
+            return {"message": f'Header {_authentication_header} type string, is missing or invalid'}, 401
+
     return authenticate
 
 

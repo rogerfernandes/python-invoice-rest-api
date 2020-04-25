@@ -1,8 +1,9 @@
+import math
+
 from invoice_app.exceptions.invoice import InvoiceNotFoundException, InvalidQueryParameterException
+from invoice_app.models.invoice import Invoice
 from invoice_app.models.page import Page
 from invoice_app.repositories.invoice import InvoiceRepository
-from invoice_app.models.invoice import Invoice
-import math
 
 
 class InvoiceService:
