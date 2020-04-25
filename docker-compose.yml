@@ -8,12 +8,11 @@ services:
     container_name: invoice-app
     ports:
       - '80:3000'
+    env_file:
+      - .env
     environment:
-      FLASK_DB_USER: app
-      FLASK_DB_PASSWORD: pass
+      FLASK_ENV: production
       FLASK_DB_HOST: invoice-app-mysql
-      FLASK_DB_PORT: 3306
-      FLASK_DB_DATABASE: invoice_store
     depends_on:
       - database
     restart: always
