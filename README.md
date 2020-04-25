@@ -119,7 +119,8 @@ curl -i -X GET 'http://localhost/api/v1/invoices?reference_year=2020&reference_m
 --header 'X-Api-Key: NDAwZGEyNDEtMjMxMS00YWY0LTg5NjktZTAwZWEwOTUyYmQ4Cg=='
 ```
 - Response
-     - Paginated Invoices
+     - Body Paginated Invoices
+     - Http Status Code `200 OK`
 ```
 {
     "page_size": 10,
