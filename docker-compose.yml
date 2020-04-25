@@ -13,9 +13,11 @@ services:
     environment:
       FLASK_ENV: production
       FLASK_DB_HOST: invoice-app-mysql
+      FLASK_DB_ROOT_PASSWORD: 123456
     depends_on:
       - database
     restart: always
+
   database:
     image: mysql
     container_name: invoice-app-mysql
@@ -23,3 +25,4 @@ services:
       - '3306:3306'
     environment:
       MYSQL_ROOT_PASSWORD: 123456
+    restart: always

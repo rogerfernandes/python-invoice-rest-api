@@ -9,6 +9,7 @@ from invoice_app.services.invoice import InvoiceService
 
 app = Flask(__name__)
 configuration.init_app(app)
+database.init_db(app)
 api_v1 = Api(app, '/api/v1')
 
 db = database.Database(app.config)

@@ -1,4 +1,21 @@
 from mysql import connector
+import time
+
+
+def init_db(app):
+    conn = connector.connect(
+        user='root',
+        password=str(app.config.get('DB_ROOT_PASSWORD')),
+        host=app.config.get('DB_HOST'),
+        database=''
+    )
+
+    with app.open_resource('schema.sql') as schema:
+        cursor = conn.cursor()
+        cursor.execute(schema.read())
+        cursor.close()
+    conn.close()
+    time.sleep(0.5)
 
 
 class Database:
