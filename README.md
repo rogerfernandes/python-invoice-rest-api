@@ -157,3 +157,12 @@ curl -i -X GET 'http://localhost/api/v1/invoices?reference_year=2020&reference_m
 - You can change MySql `root` password
     - FLASK_DB_ROOT_PASSWORD: 123456
     - MYSQL_ROOT_PASSWORD: 123456
+    
+## Collaborators
+| [@rogerfernandes][rogerfernandes] |
+| :-------------------------------: |
+|       ![][p_rogerfernandes]       |
+|         Software Engineer         |
+
+[rogerfernandes]: http://github.com/rogerfernandes
+[p_rogerfernandes]: https://avatars0.githubusercontent.com/u/4138825?v=4&s=100
