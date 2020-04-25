@@ -1,0 +1,26 @@
+version: '3'
+services:
+  invoice-app:
+    build:
+      dockerfile: Dockerfile
+      context: .
+    image: rogerfernandes/invoice-app
+    container_name: invoice-app
+    ports:
+      - '80:3000'
+    environment:
+      FLASK_DB_USER: app
+      FLASK_DB_PASSWORD: pass
+      FLASK_DB_HOST: invoice-app-mysql
+      FLASK_DB_PORT: 3306
+      FLASK_DB_DATABASE: invoice_store
+    depends_on:
+      - database
+    restart: always
+  database:
+    image: mysql
+    container_name: invoice-app-mysql
+    ports:
+      - '3306:3306'
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456

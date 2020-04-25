@@ -7,13 +7,13 @@ verify_ssl = true
 flask = '==1.1.2'
 dynaconf = '==2.2.3'
 flask-restful = '==0.3.8'
-mysql-connector = '==2.2.9'
+mysql-connector-python = "==8.0.19"
 
 [packages]
 flask = '==1.1.2'
 dynaconf = '==2.2.3'
 flask-restful = '==0.3.8'
-mysql-connector = '==2.2.9'
+mysql-connector-python = "==8.0.19"
 
 [requires]
 python_version = '3.7'
