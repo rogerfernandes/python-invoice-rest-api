@@ -115,4 +115,4 @@ api_v1.add_resource(InvoiceResource, '/invoice', '/invoice/<document>')
 api_v1.add_resource(InvoicesResource, '/invoices')
 
 if __name__ == '__main__':
-    app.run('0.0.0.0', 3000)
+    app.run('0.0.0.0', 80)

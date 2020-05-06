@@ -30,7 +30,7 @@
 - RUN TESTS: `python3 -m unittest`
 
 # Using
- - Just to remember that locally port is `:3000` and in the Docker container is `:80`
+ 
 ## Invoice end-points
 
 ### GET
@@ -38,7 +38,7 @@
     - Path Param `document`
     - Header `X-Api-Key` (application token)
 ```
-curl -i -X GET 'localhost:3000/api/v1/invoice/123456' \
+curl -i -X GET 'localhost/api/v1/invoice/123456' \
 --header 'X-Api-Key: NDAwZGEyNDEtMjMxMS00YWY0LTg5NjktZTAwZWEwOTUyYmQ4Cg=='
 ```
 - Response
@@ -63,7 +63,7 @@ curl -i -X GET 'localhost:3000/api/v1/invoice/123456' \
     - Header `X-Api-Key` (application token)
     - Body `Invoice`
 ```
-curl -i -X POST 'localhost:3000/api/v1/invoice' \
+curl -i -X POST 'localhost/api/v1/invoice' \
 --header 'X-Api-Key: NDAwZGEyNDEtMjMxMS00YWY0LTg5NjktZTAwZWEwOTUyYmQ4Cg==' \
 --header 'Content-Type: application/json' \
 --data-raw '{
@@ -95,7 +95,7 @@ curl -i -X POST 'localhost:3000/api/v1/invoice' \
     - Path Param `document`
     - Header `X-Api-Key` (application token)
 ```
-curl -i -X DELETE 'localhost:3000/api/v1/invoice/123456' \
+curl -i -X DELETE 'localhost/api/v1/invoice/123456' \
 --header 'X-Api-Key: NDAwZGEyNDEtMjMxMS00YWY0LTg5NjktZTAwZWEwOTUyYmQ4Cg=='
 ```
 - Response
@@ -155,6 +155,7 @@ curl -i -X GET 'http://localhost/api/v1/invoices?reference_year=2020&reference_m
     - FLASK_DB_ROOT_PASSWORD=123456 `this password is used to run migration in database`
 
 ## Docker-compose
+- WAIT_HOSTS `used to define a host to wait for other docker images to be started while using docker-compose`
 - You can change MySql `root` password
     - FLASK_DB_ROOT_PASSWORD: 123456
     - MYSQL_ROOT_PASSWORD: 123456
