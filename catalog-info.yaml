@@ -1,0 +1,10 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: python-invoice-rest-api
+  annotations:
+    github.com/project-slug: rogerfernandes/python-invoice-rest-api
+spec:
+  type: other
+  lifecycle: unknown
+  owner: rogerfernandes
